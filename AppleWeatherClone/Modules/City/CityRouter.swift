@@ -13,11 +13,11 @@ final class CityRouter: CityWireframeProtocol {
     
     weak var viewController: UIViewController?
     
-    static func createModule(latitude: Double, longitude: Double) -> UIViewController {
+    static func createModule(latitude: Double, longitude: Double, name: String) -> UIViewController {
         let view = CityViewController()
         let interactor = CityInteractor(latitude: latitude, longitude: longitude)
         let router = CityRouter()
-        let presenter = CityPresenter(interface: view, interactor: interactor, router: router)
+        let presenter = CityPresenter(interface: view, interactor: interactor, router: router, name: name)
         
         view.presenter = presenter
         interactor.presenter = presenter

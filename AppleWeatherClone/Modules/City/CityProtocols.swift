@@ -19,6 +19,7 @@ protocol CityPresenterProtocol: AnyObject {
     func handleSucces(model: CityWeather)
     func handleFailure(error: String)
     func getModel() -> CityWeather
+    func getName() -> String
 }
 
 //MARK: Interactor -

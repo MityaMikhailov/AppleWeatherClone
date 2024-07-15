@@ -27,6 +27,8 @@ final class CityViewController: UIViewController, CityViewProtocol {
         return scrollView
     }()
     
+    private var infoView: InfoView!
+    
 	override func viewDidLoad() {
         super.viewDidLoad()
         setupLoadIndicatorView()
@@ -48,8 +50,17 @@ final class CityViewController: UIViewController, CityViewProtocol {
         loadIndicatorView.isHidden = true
         
         view.addSubview(weatherScrollView)
-        
+        setupInfoView()
         setupConstraints()
+    }
+    //MARK: - Setup Info View
+    private func setupInfoView() {
+        
+        guard let presenter = presenter else { return }
+        
+        infoView = InfoView(frame: .zero)
+        infoView.configure(model: presenter.getModel(), name: presenter.getName())
+        weatherScrollView.addSubview(infoView)
     }
     //MARK: - Setup Constraints
     private func setupConstraints() {
@@ -58,6 +69,12 @@ final class CityViewController: UIViewController, CityViewProtocol {
             $0.left.right.equalToSuperview()
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+        
+        infoView.snp.makeConstraints {
+            $0.width.equalToSuperview().multipliedBy(0.95)
+            $0.top.equalToSuperview()
+            $0.centerX.equalToSuperview()
         }
         
     }

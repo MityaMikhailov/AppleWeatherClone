@@ -15,16 +15,19 @@ final class CityPresenter: CityPresenterProtocol {
     var interactor: CityInteractorProtocol?
     private let router: CityWireframeProtocol
     
+    var name: String
+    
     var model: CityWeather! {
         didSet {
             view?.updateView()
         }
     }
 
-    init(interface: CityViewProtocol, interactor: CityInteractorProtocol?, router: CityWireframeProtocol) {
+    init(interface: CityViewProtocol, interactor: CityInteractorProtocol?, router: CityWireframeProtocol, name: String) {
         self.view = interface
         self.interactor = interactor
         self.router = router
+        self.name = name
     }
 
     func viewDidLoad() {
@@ -41,6 +44,10 @@ final class CityPresenter: CityPresenterProtocol {
     
     func getModel() -> CityWeather {
         model
+    }
+    
+    func getName() -> String {
+        return name
     }
     
 }
