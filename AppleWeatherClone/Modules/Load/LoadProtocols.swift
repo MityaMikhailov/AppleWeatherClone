@@ -15,13 +15,15 @@ protocol LoadWireframeProtocol: AnyObject {
 }
 //MARK: Presenter -
 protocol LoadPresenterProtocol: AnyObject {
-    
+    func getCurrentLocation()
+    func handleSucces(lallitude: Double, longitude: Double, name: String)
 }
 
 //MARK: Interactor -
 protocol LoadInteractorProtocol: AnyObject {
     
     var presenter: LoadPresenterProtocol?  { get set }
+    func startUpdatingLocation()
 }
 
 //MARK: View -

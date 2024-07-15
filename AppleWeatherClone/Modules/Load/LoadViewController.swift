@@ -19,6 +19,7 @@ final class LoadViewController: UIViewController, LoadViewProtocol {
         super.viewDidLoad()
         setupUI()
         setupLoadView()
+        presenter?.getCurrentLocation()
     }
     //MARK: - SetupUI()
     private func setupUI() {

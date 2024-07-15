@@ -20,6 +20,8 @@
 		4D6D18C72C45464900FD3B6C /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 4D6D18C62C45464900FD3B6C /* Moya */; };
 		4D6D18CA2C45465200FD3B6C /* Swinject in Frameworks */ = {isa = PBXBuildFile; productRef = 4D6D18C92C45465200FD3B6C /* Swinject */; };
 		4D6D18CE2C4547B000FD3B6C /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6D18CD2C4547B000FD3B6C /* LoadingView.swift */; };
+		4D6D18D02C454BA300FD3B6C /* CoreLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6D18CF2C454BA300FD3B6C /* CoreLocationService.swift */; };
+		4D6D18D22C45550800FD3B6C /* NameService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6D18D12C45550800FD3B6C /* NameService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		4D6D18B72C45449900FD3B6C /* LoadProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadProtocols.swift; sourceTree = "<group>"; };
 		4D6D18B82C45449900FD3B6C /* LoadInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadInteractor.swift; sourceTree = "<group>"; };
 		4D6D18CD2C4547B000FD3B6C /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		4D6D18CF2C454BA300FD3B6C /* CoreLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocationService.swift; sourceTree = "<group>"; };
+		4D6D18D12C45550800FD3B6C /* NameService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +133,8 @@
 		4D6D18C12C4545FC00FD3B6C /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				4D6D18CF2C454BA300FD3B6C /* CoreLocationService.swift */,
+				4D6D18D12C45550800FD3B6C /* NameService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -229,9 +235,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D6D18D22C45550800FD3B6C /* NameService.swift in Sources */,
 				4D6D18B92C45449900FD3B6C /* LoadPresenter.swift in Sources */,
 				4D6D18BA2C45449900FD3B6C /* LoadRouter.swift in Sources */,
 				4D6D18BB2C45449900FD3B6C /* LoadViewController.swift in Sources */,
+				4D6D18D02C454BA300FD3B6C /* CoreLocationService.swift in Sources */,
 				4D6D18BC2C45449900FD3B6C /* LoadProtocols.swift in Sources */,
 				4D6D18CE2C4547B000FD3B6C /* LoadingView.swift in Sources */,
 				4D6D18BD2C45449900FD3B6C /* LoadInteractor.swift in Sources */,

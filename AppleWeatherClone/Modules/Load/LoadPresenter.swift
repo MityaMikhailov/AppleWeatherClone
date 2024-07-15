@@ -20,5 +20,15 @@ final class LoadPresenter: LoadPresenterProtocol {
         self.interactor = interactor
         self.router = router
     }
+    
+    func getCurrentLocation() {
+        interactor?.startUpdatingLocation()
+    }
 
+    func handleSucces(lallitude: Double, longitude: Double, name: String) {
+        print(name)
+        print("широта", lallitude)
+        print("долгота", longitude)
+    }
+    
 }
