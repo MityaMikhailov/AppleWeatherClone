@@ -62,12 +62,11 @@
 		4D6D189D2C45435200FD3B6C /* AppleWeatherClone */ = {
 			isa = PBXGroup;
 			children = (
+				4D6D18BE2C4545C300FD3B6C /* App */,
+				4D6D18BF2C4545C800FD3B6C /* Resources */,
+				4D6D18C12C4545FC00FD3B6C /* Services */,
+				4D6D18C02C4545F200FD3B6C /* Common */,
 				4D6D18B22C45445D00FD3B6C /* Modules */,
-				4D6D189E2C45435200FD3B6C /* AppDelegate.swift */,
-				4D6D18A02C45435200FD3B6C /* SceneDelegate.swift */,
-				4D6D18A72C45435400FD3B6C /* Assets.xcassets */,
-				4D6D18A92C45435400FD3B6C /* LaunchScreen.storyboard */,
-				4D6D18AC2C45435400FD3B6C /* Info.plist */,
 			);
 			path = AppleWeatherClone;
 			sourceTree = "<group>";
@@ -90,6 +89,39 @@
 				4D6D18B82C45449900FD3B6C /* LoadInteractor.swift */,
 			);
 			path = Load;
+			sourceTree = "<group>";
+		};
+		4D6D18BE2C4545C300FD3B6C /* App */ = {
+			isa = PBXGroup;
+			children = (
+				4D6D189E2C45435200FD3B6C /* AppDelegate.swift */,
+				4D6D18A02C45435200FD3B6C /* SceneDelegate.swift */,
+				4D6D18A92C45435400FD3B6C /* LaunchScreen.storyboard */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		4D6D18BF2C4545C800FD3B6C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4D6D18A72C45435400FD3B6C /* Assets.xcassets */,
+				4D6D18AC2C45435400FD3B6C /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4D6D18C02C4545F200FD3B6C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		4D6D18C12C4545FC00FD3B6C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,7 +346,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B34B7NL5L2;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = AppleWeatherClone/Info.plist;
+				INFOPLIST_FILE = AppleWeatherClone/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
@@ -346,7 +378,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = B34B7NL5L2;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = AppleWeatherClone/Info.plist;
+				INFOPLIST_FILE = AppleWeatherClone/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
