@@ -11,12 +11,12 @@ import Foundation
 
 //MARK: Wireframe -
 protocol LoadWireframeProtocol: AnyObject {
-    
+    func showCityWeather(name: String, latitude: Double, longitude: Double)
 }
 //MARK: Presenter -
 protocol LoadPresenterProtocol: AnyObject {
     func getCurrentLocation()
-    func handleSucces(lallitude: Double, longitude: Double, name: String)
+    func handleSucces(latitude: Double, longitude: Double, name: String)
 }
 
 //MARK: Interactor -

@@ -14,7 +14,7 @@ final class LoadInteractor: LoadInteractorProtocol {
     
     weak var presenter: LoadPresenterProtocol?
     var locationService: CoreLocationService!
-    var lallitude: Double!
+    var latitude: Double!
     var longitude: Double!
     
     func startUpdatingLocation() {
@@ -27,9 +27,9 @@ final class LoadInteractor: LoadInteractorProtocol {
 
 extension LoadInteractor: CoreLocationServiceDelegate {
     func locationService(_ service: CoreLocationService, didUpdateLocation location: CLLocation) {
-        lallitude = location.coordinate.latitude
+        latitude = location.coordinate.latitude
         longitude = location.coordinate.longitude
-        let nameService = NameService(lallitude: lallitude, longitude: longitude)
+        let nameService = NameService(lallitude: latitude, longitude: longitude)
         nameService.delegate = self
         nameService.getName()
     }
@@ -37,8 +37,8 @@ extension LoadInteractor: CoreLocationServiceDelegate {
 
 extension LoadInteractor: NameServiceDelegate {
     func nameService(_ service: NameService, fetchNames name: String) {
-        guard let lallitude,
+        guard let latitude,
               let longitude else { return }
-        presenter?.handleSucces(lallitude: lallitude, longitude: longitude, name: name)
+        presenter?.handleSucces(latitude: latitude, longitude: longitude, name: name)
     }
 }

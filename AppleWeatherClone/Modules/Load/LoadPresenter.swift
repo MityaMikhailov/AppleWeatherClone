@@ -25,10 +25,8 @@ final class LoadPresenter: LoadPresenterProtocol {
         interactor?.startUpdatingLocation()
     }
 
-    func handleSucces(lallitude: Double, longitude: Double, name: String) {
-        print(name)
-        print("широта", lallitude)
-        print("долгота", longitude)
+    func handleSucces(latitude: Double, longitude: Double, name: String) {
+        router.showCityWeather(name: name, latitude: latitude, longitude: longitude)
     }
     
 }
