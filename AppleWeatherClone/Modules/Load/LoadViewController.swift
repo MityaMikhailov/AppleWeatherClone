@@ -19,7 +19,7 @@ final class LoadViewController: UIViewController, LoadViewProtocol {
     }
     //MARK: - SetupUI()
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "BackColor")
     }
 
 }
