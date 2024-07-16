@@ -21,6 +21,7 @@ class InfoView: UIView {
     private lazy var currentTempLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
+        label.textAlignment = .center
         label.font = .systemFont(ofSize: 70)
         return label
     }()
@@ -28,6 +29,8 @@ class InfoView: UIView {
     private lazy var conditionLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
+        label.numberOfLines = 0
+        label.textAlignment = .center
         label.font = .systemFont(ofSize: 20)
         return label
     }()

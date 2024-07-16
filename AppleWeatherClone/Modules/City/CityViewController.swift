@@ -29,6 +29,7 @@ final class CityViewController: UIViewController, CityViewProtocol {
     
     private var infoView: InfoView!
     private var hourlyView: HourlyView!
+    private var dailyView: DailyView!
     
 	override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +54,7 @@ final class CityViewController: UIViewController, CityViewProtocol {
         view.addSubview(weatherScrollView)
         setupInfoView()
         setupHourlyView()
+        setupDailyView()
         setupConstraints()
     }
     //MARK: - Setup Info View
@@ -73,6 +75,14 @@ final class CityViewController: UIViewController, CityViewProtocol {
         hourlyView.configureScrollView(with: presenter.getModel())
         weatherScrollView.addSubview(hourlyView)
     }
+    //MARK: - Setup Daily View
+    private func setupDailyView() {
+        guard let presenter = presenter else { return }
+        
+        dailyView = DailyView(frame: .zero)
+        dailyView.configure(model: presenter.getModel())
+        weatherScrollView.addSubview(dailyView)
+    }
     //MARK: - Setup Constraints
     private func setupConstraints() {
         
@@ -92,6 +102,13 @@ final class CityViewController: UIViewController, CityViewProtocol {
             $0.top.equalTo(infoView.snp.bottom).offset(15)
             $0.width.equalToSuperview().multipliedBy(0.9)
             $0.centerX.equalToSuperview()
+        }
+        
+        dailyView.snp.makeConstraints {
+            $0.top.equalTo(hourlyView.snp.bottom).offset(30)
+            $0.centerX.equalToSuperview()
+            $0.width.equalTo(hourlyView.snp.width)
+            $0.bottom.equalToSuperview()
         }
         
     }
