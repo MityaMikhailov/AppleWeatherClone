@@ -50,4 +50,8 @@ final class CityPresenter: CityPresenterProtocol {
         return name
     }
     
+    func showSearchScreen() {
+        router.pushToSearch()
+    }
+    
 }

@@ -27,6 +27,9 @@ final class CityViewController: UIViewController, CityViewProtocol {
         return scrollView
     }()
     
+    let footerView = UIView()
+    let citySearchButton = UIButton(type: .system)
+    
     private var infoView: InfoView!
     private var hourlyView: HourlyView!
     private var dailyView: DailyView!
@@ -65,11 +68,34 @@ final class CityViewController: UIViewController, CityViewProtocol {
         loadIndicatorView.stopAnimating()
         loadIndicatorView.isHidden = true
         
-        
+        setupFooterView()
         setupInfoView()
         setupHourlyView()
         setupDailyView()
         setupConstraints()
+    }
+    //MARK: - Setup Footer View
+    private func setupFooterView() {
+        footerView.backgroundColor = UIColor(named: "BackColor")
+        view.addSubview(footerView)
+        
+        footerView.snp.makeConstraints {
+            $0.bottom.equalToSuperview()
+            $0.left.right.equalToSuperview()
+            $0.height.equalToSuperview().multipliedBy(0.07)
+        }
+        
+        
+        citySearchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
+        citySearchButton.setImage(UIImage(named: "menu"), for: .normal)
+        citySearchButton.tintColor = .white
+        footerView.addSubview(citySearchButton)
+        
+        citySearchButton.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(5)
+            $0.right.equalToSuperview().inset(12)
+            $0.bottom.equalToSuperview().inset(15)
+        }
     }
     //MARK: - Setup Info View
     private func setupInfoView() {
@@ -97,7 +123,7 @@ final class CityViewController: UIViewController, CityViewProtocol {
         weatherScrollView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            $0.bottom.equalTo(footerView.snp.top)
         }
         
         infoView.snp.makeConstraints {
@@ -118,6 +144,12 @@ final class CityViewController: UIViewController, CityViewProtocol {
             $0.width.equalTo(hourlyView.snp.width)
         }
         
+        
+        
+    }
+    
+    @objc private func searchButtonTapped() {
+        presenter?.showSearchScreen()
     }
     
     func updateView() {

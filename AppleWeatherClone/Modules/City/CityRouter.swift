@@ -25,4 +25,10 @@ final class CityRouter: CityWireframeProtocol {
         
         return view
     }
+    
+    func pushToSearch() {
+        let searchViewController = SearchRouter.createModule()
+        viewController?.navigationController?.pushViewController(searchViewController, animated: false)
+    }
+    
 }

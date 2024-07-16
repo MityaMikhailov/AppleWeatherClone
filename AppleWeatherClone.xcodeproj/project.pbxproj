@@ -35,6 +35,11 @@
 		4D8DD4002C463C320088BF48 /* HourlyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8DD3FF2C463C320088BF48 /* HourlyView.swift */; };
 		4D8DD4022C464D7F0088BF48 /* DailyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8DD4012C464D7F0088BF48 /* DailyView.swift */; };
 		4D8DD4052C46504A0088BF48 /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8DD4042C46504A0088BF48 /* DayCell.swift */; };
+		4DA56E552C469BA400465657 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA56E502C469BA400465657 /* SearchPresenter.swift */; };
+		4DA56E562C469BA400465657 /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA56E512C469BA400465657 /* SearchRouter.swift */; };
+		4DA56E572C469BA400465657 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA56E522C469BA400465657 /* SearchViewController.swift */; };
+		4DA56E582C469BA400465657 /* SearchProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA56E532C469BA400465657 /* SearchProtocols.swift */; };
+		4DA56E592C469BA400465657 /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA56E542C469BA400465657 /* SearchInteractor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +70,11 @@
 		4D8DD3FF2C463C320088BF48 /* HourlyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyView.swift; sourceTree = "<group>"; };
 		4D8DD4012C464D7F0088BF48 /* DailyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyView.swift; sourceTree = "<group>"; };
 		4D8DD4042C46504A0088BF48 /* DayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
+		4DA56E502C469BA400465657 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		4DA56E512C469BA400465657 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
+		4DA56E522C469BA400465657 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		4DA56E532C469BA400465657 /* SearchProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProtocols.swift; sourceTree = "<group>"; };
+		4DA56E542C469BA400465657 /* SearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +157,7 @@
 		4D6D18B22C45445D00FD3B6C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				4DA56E4F2C469B8E00465657 /* Search */,
 				4D6D18D32C455F2A00FD3B6C /* City */,
 				4D6D18B32C45448E00FD3B6C /* Load */,
 			);
@@ -242,6 +253,18 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		4DA56E4F2C469B8E00465657 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				4DA56E502C469BA400465657 /* SearchPresenter.swift */,
+				4DA56E512C469BA400465657 /* SearchRouter.swift */,
+				4DA56E522C469BA400465657 /* SearchViewController.swift */,
+				4DA56E532C469BA400465657 /* SearchProtocols.swift */,
+				4DA56E542C469BA400465657 /* SearchInteractor.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -331,6 +354,11 @@
 				4D6421092C4568A90068B8AD /* NetworkManager.swift in Sources */,
 				4D6D18D02C454BA300FD3B6C /* CoreLocationService.swift in Sources */,
 				4D6D18BC2C45449900FD3B6C /* LoadProtocols.swift in Sources */,
+				4DA56E552C469BA400465657 /* SearchPresenter.swift in Sources */,
+				4DA56E562C469BA400465657 /* SearchRouter.swift in Sources */,
+				4DA56E572C469BA400465657 /* SearchViewController.swift in Sources */,
+				4DA56E582C469BA400465657 /* SearchProtocols.swift in Sources */,
+				4DA56E592C469BA400465657 /* SearchInteractor.swift in Sources */,
 				4D6D18CE2C4547B000FD3B6C /* LoadingView.swift in Sources */,
 				4D5678AB2C456E8400EC5B1E /* Ext.swift in Sources */,
 				4D8DD4052C46504A0088BF48 /* DayCell.swift in Sources */,

@@ -11,7 +11,7 @@ import Foundation
 
 //MARK: Wireframe -
 protocol CityWireframeProtocol: AnyObject {
-    
+    func pushToSearch()
 }
 //MARK: Presenter -
 protocol CityPresenterProtocol: AnyObject {
@@ -20,6 +20,7 @@ protocol CityPresenterProtocol: AnyObject {
     func handleFailure(error: String)
     func getModel() -> CityWeather
     func getName() -> String
+    func showSearchScreen()
 }
 
 //MARK: Interactor -
