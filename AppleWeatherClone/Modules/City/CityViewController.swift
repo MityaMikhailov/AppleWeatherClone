@@ -31,6 +31,7 @@ final class CityViewController: UIViewController, CityViewProtocol {
     private var hourlyView: HourlyView!
     private var dailyView: DailyView!
     
+    //MARK: - View Did Load
 	override func viewDidLoad() {
         super.viewDidLoad()
         setupLoadIndicatorView()
@@ -38,8 +39,21 @@ final class CityViewController: UIViewController, CityViewProtocol {
     }
     //MARK: - Setup Load Indicator View
     private func setupLoadIndicatorView() {
-        view.backgroundColor = UIColor(named: "BackColor")
         navigationItem.hidesBackButton = true
+//        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.barTintColor = UIColor(named: "BackColor")
+        view.backgroundColor = UIColor(named: "BackColor")
+        
+        view.addSubview(weatherScrollView)
+        
+        infoView = InfoView(frame: .zero)
+        hourlyView = HourlyView(frame: .zero)
+        dailyView = DailyView(frame: .zero)
+        
+        weatherScrollView.addSubview(infoView)
+        weatherScrollView.addSubview(hourlyView)
+        weatherScrollView.addSubview(dailyView)
+        
         view.addSubview(loadIndicatorView)
         loadIndicatorView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
@@ -51,7 +65,7 @@ final class CityViewController: UIViewController, CityViewProtocol {
         loadIndicatorView.stopAnimating()
         loadIndicatorView.isHidden = true
         
-        view.addSubview(weatherScrollView)
+        
         setupInfoView()
         setupHourlyView()
         setupDailyView()
@@ -62,26 +76,20 @@ final class CityViewController: UIViewController, CityViewProtocol {
         
         guard let presenter = presenter else { return }
         
-        infoView = InfoView(frame: .zero)
         infoView.configure(model: presenter.getModel(), name: presenter.getName())
-        weatherScrollView.addSubview(infoView)
     }
     //MARK: - Setup Hourly View
     private func setupHourlyView() {
         
         guard let presenter = presenter else { return }
         
-        hourlyView = HourlyView(frame: .zero)
         hourlyView.configureScrollView(with: presenter.getModel())
-        weatherScrollView.addSubview(hourlyView)
     }
     //MARK: - Setup Daily View
     private func setupDailyView() {
         guard let presenter = presenter else { return }
         
-        dailyView = DailyView(frame: .zero)
         dailyView.configure(model: presenter.getModel())
-        weatherScrollView.addSubview(dailyView)
     }
     //MARK: - Setup Constraints
     private func setupConstraints() {
@@ -108,7 +116,6 @@ final class CityViewController: UIViewController, CityViewProtocol {
             $0.top.equalTo(hourlyView.snp.bottom).offset(30)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(hourlyView.snp.width)
-            $0.bottom.equalToSuperview()
         }
         
     }
@@ -117,4 +124,11 @@ final class CityViewController: UIViewController, CityViewProtocol {
         setupUI()
     }
 
+}
+
+extension CityViewController {
+    override func viewDidLayoutSubviews() {
+        let totalHeight = infoView.bounds.height + hourlyView.bounds.height + dailyView.bounds.height + 15 + 100
+        weatherScrollView.contentSize.height = totalHeight
+    }
 }
