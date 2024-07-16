@@ -32,6 +32,7 @@
 		4D6D18DB2C455F3700FD3B6C /* CityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6D18D62C455F3700FD3B6C /* CityViewController.swift */; };
 		4D6D18DC2C455F3700FD3B6C /* CityProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6D18D72C455F3700FD3B6C /* CityProtocols.swift */; };
 		4D6D18DD2C455F3700FD3B6C /* CityInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D6D18D82C455F3700FD3B6C /* CityInteractor.swift */; };
+		4D8DD4002C463C320088BF48 /* HourlyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D8DD3FF2C463C320088BF48 /* HourlyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		4D6D18D62C455F3700FD3B6C /* CityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityViewController.swift; sourceTree = "<group>"; };
 		4D6D18D72C455F3700FD3B6C /* CityProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityProtocols.swift; sourceTree = "<group>"; };
 		4D6D18D82C455F3700FD3B6C /* CityInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityInteractor.swift; sourceTree = "<group>"; };
+		4D8DD3FF2C463C320088BF48 /* HourlyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				4D5678A32C456E1700EC5B1E /* InfoView.swift */,
+				4D8DD3FF2C463C320088BF48 /* HourlyView.swift */,
 			);
 			path = City;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				4D6D18DA2C455F3700FD3B6C /* CityRouter.swift in Sources */,
 				4D6D18DB2C455F3700FD3B6C /* CityViewController.swift in Sources */,
 				4D6D18DC2C455F3700FD3B6C /* CityProtocols.swift in Sources */,
+				4D8DD4002C463C320088BF48 /* HourlyView.swift in Sources */,
 				4D6D18DD2C455F3700FD3B6C /* CityInteractor.swift in Sources */,
 				4D5678A72C456E5900EC5B1E /* WeatherType.swift in Sources */,
 			);

@@ -88,7 +88,7 @@ class InfoView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    //MARK: - Setup
     private func setup() {
         self.addSubview(infoStack)
         self.backgroundColor = .clear
@@ -99,7 +99,7 @@ class InfoView: UIView {
             $0.height.greaterThanOrEqualTo(infoStack.snp.height)
         }
     }
-
+    //MARK: - Configure
     func configure(model: CityWeather, name: String) {
         guard let temperature = model.current?.temperature2M,
               let maxTemp = model.daily?.temperature2MMax?[0],
