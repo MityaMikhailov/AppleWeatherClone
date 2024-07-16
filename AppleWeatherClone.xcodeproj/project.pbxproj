@@ -219,6 +219,7 @@
 		4D6D18CB2C45479C00FD3B6C /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				4DA56E5A2C46A23C00465657 /* Search */,
 				4D5678A22C456E0D00EC5B1E /* City */,
 				4D6D18CC2C4547A300FD3B6C /* Load */,
 			);
@@ -261,6 +262,13 @@
 				4DA56E522C469BA400465657 /* SearchViewController.swift */,
 				4DA56E532C469BA400465657 /* SearchProtocols.swift */,
 				4DA56E542C469BA400465657 /* SearchInteractor.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		4DA56E5A2C46A23C00465657 /* Search */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = Search;
 			sourceTree = "<group>";
