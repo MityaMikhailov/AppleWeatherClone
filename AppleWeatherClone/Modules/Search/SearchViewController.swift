@@ -21,14 +21,16 @@ final class SearchViewController: UIViewController, SearchViewProtocol {
         searchController.searchBar.tintColor = .white
         searchController.searchBar.barStyle = .black
         searchController.searchBar.placeholder = "Поиск города или аэропорта"
-        searchController.delegate = self
+        searchController.searchBar.delegate = self
         return searchController
     }()
     
     private lazy var searchTable: UITableView = {
         let table = UITableView()
         table.dataSource = self
+        table.delegate = self
         table.backgroundColor = .clear
+        table.isHidden = true
         return table
     }()
 
@@ -83,20 +85,49 @@ final class SearchViewController: UIViewController, SearchViewProtocol {
             $0.right.equalToSuperview().inset(15)
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
+        
+    }
+    //MARK: - Update searchTableView
+    func updateSearchTable() {
+        searchTable.reloadData()
     }
 }
 
-extension SearchViewController: UISearchControllerDelegate {
+extension SearchViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard !searchText.isEmpty else { 
+            searchTable.isHidden = true
+            return
+        }
+        searchTable.isHidden = false
+        presenter?.searchCities(searchText: searchText)
+    }
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchTable.isHidden = true
+    }
 }
 
 extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        guard let presenter = presenter else { return 0 }
+        return presenter.getResults().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
+        cell.backgroundColor = .clear
+        cell.textLabel?.textColor = .white
+        cell.textLabel?.text = (presenter?.getResults()[indexPath.row].name ?? "") + "," + (presenter?.getResults()[indexPath.row].country ?? "")
         return cell
+    }
+}
+
+extension SearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let presenter = presenter else { return }
+        presenter.showCityWeather(name: presenter.getResults()[indexPath.row].name,
+                                  latitude: presenter.getResults()[indexPath.row].latitude,
+                                  longitude: presenter.getResults()[indexPath.row].longitude)
     }
 }
