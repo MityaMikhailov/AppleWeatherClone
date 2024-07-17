@@ -79,4 +79,28 @@ class NameService {
         }
     }
     
+    func getResult() {
+        let geocoder = CLGeocoder()
+        
+        let locale = Locale(identifier: "ru_RU")
+        
+        geocoder.reverseGeocodeLocation(location, preferredLocale: locale) { placemarks, error in
+            if let error = error {
+                print("Reverse geocode failed with error: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let placemark = placemarks?.first else {
+                print("No placemark found")
+                return
+            }
+            
+            if let city = placemark.locality {
+                self.delegate?.nameService(self, fetchNames: city)
+            } else {
+                print("City name not found")
+            }
+        }
+    }
+    
 }

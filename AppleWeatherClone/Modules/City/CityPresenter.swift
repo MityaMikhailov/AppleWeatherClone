@@ -36,6 +36,7 @@ final class CityPresenter: CityPresenterProtocol {
     
     func handleSucces(model: CityWeather) {
         self.model = model
+        interactor?.saveItem(model: model)
     }
     
     func handleFailure(error: String) {

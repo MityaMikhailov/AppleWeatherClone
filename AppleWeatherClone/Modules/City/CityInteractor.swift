@@ -15,12 +15,14 @@ final class CityInteractor: CityInteractorProtocol {
     let latitude: Double
     let longitude: Double
     let networkManager: NetworkManager<CityWeather>
+    let userDefaultManager: UserDefaultManager<CityWeather>
     let parameters: [String: String]
     let baseURL = "https://api.open-meteo.com/v1/"
     let endPoint = "forecast"
+    var currentLocation: Bool
     
     
-    init(latitude: Double, longitude: Double) {
+    init(latitude: Double, longitude: Double, currentLocation: Bool) {
         self.latitude = latitude
         self.longitude = longitude
         parameters = [
@@ -38,6 +40,22 @@ final class CityInteractor: CityInteractorProtocol {
                                              apiKey: "",
                                              endPoint: endPoint,
                                              parameters: parameters)
+        self.userDefaultManager = UserDefaultManager<CityWeather>(key: "savedCity")
+        self.currentLocation = currentLocation
+    }
+    
+    func saveItem(model: CityWeather) {
+        //Нужна текущая локация
+        //guard локация равна тогда выбросить
+        if currentLocation {
+            userDefaultManager.addFirstItem(model)
+        }
+        guard let cities = userDefaultManager.loadItems() else {
+            print("NO")
+            return
+        }
+        print(cities)
+        
     }
     
     func fetchData() {

@@ -13,9 +13,9 @@ final class CityRouter: CityWireframeProtocol {
     
     weak var viewController: UIViewController?
     
-    static func createModule(latitude: Double, longitude: Double, name: String) -> UIViewController {
+    static func createModule(latitude: Double, longitude: Double, name: String, currentLocation: Bool) -> UIViewController {
         let view = CityViewController()
-        let interactor = CityInteractor(latitude: latitude, longitude: longitude)
+        let interactor = CityInteractor(latitude: latitude, longitude: longitude, currentLocation: currentLocation)
         let router = CityRouter()
         let presenter = CityPresenter(interface: view, interactor: interactor, router: router, name: name)
         

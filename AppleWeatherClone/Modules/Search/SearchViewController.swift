@@ -33,6 +33,8 @@ final class SearchViewController: UIViewController, SearchViewProtocol {
         table.isHidden = true
         return table
     }()
+    
+    private var savedCityView: SavedCityView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +47,7 @@ final class SearchViewController: UIViewController, SearchViewProtocol {
         navigationItem.hidesBackButton = true
         setupTitleView()
         setupCitySearch()
+        setupSavedCityView()
         setupSearchTable()
     }
     
@@ -87,6 +90,18 @@ final class SearchViewController: UIViewController, SearchViewProtocol {
         }
         
     }
+    //MARK: - Setup SavedCity View
+    func setupSavedCityView() {
+        savedCityView = SavedCityView(frame: .zero)
+        //savedCityView.configure(name: T##String, model: T##CityWeather)
+        view.addSubview(savedCityView)
+        savedCityView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.left.equalToSuperview().offset(15)
+            $0.right.equalToSuperview().inset(15)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+        }
+    }
     //MARK: - Update searchTableView
     func updateSearchTable() {
         searchTable.reloadData()
@@ -97,14 +112,17 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard !searchText.isEmpty else { 
             searchTable.isHidden = true
+            savedCityView.isHidden = false
             return
         }
+        savedCityView.isHidden = true
         searchTable.isHidden = false
         presenter?.searchCities(searchText: searchText)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchTable.isHidden = true
+        savedCityView.isHidden = false
     }
 }
 

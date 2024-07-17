@@ -28,6 +28,7 @@ protocol CityInteractorProtocol: AnyObject {
     
     var presenter: CityPresenterProtocol?  { get set }
     func fetchData()
+    func saveItem(model: CityWeather)
 }
 
 //MARK: View -

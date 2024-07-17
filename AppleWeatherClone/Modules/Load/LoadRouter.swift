@@ -27,7 +27,7 @@ final class LoadRouter: LoadWireframeProtocol {
     }
     
     func showCityWeather(name: String, latitude: Double, longitude: Double) {
-        let cityViewController = CityRouter.createModule(latitude: latitude, longitude: longitude, name: name)
+        let cityViewController = CityRouter.createModule(latitude: latitude, longitude: longitude, name: name, currentLocation: true)
         viewController?.navigationController?.pushViewController(cityViewController, animated: false)
     }
 }
