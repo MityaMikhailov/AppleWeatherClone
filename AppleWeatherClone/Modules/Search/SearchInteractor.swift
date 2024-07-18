@@ -14,6 +14,7 @@ final class SearchInteractor: SearchInteractorProtocol {
 
     weak var presenter: SearchPresenterProtocol?
     let nameService = NameService(lallitude: 0, longitude: 0)
+    let userDefaultManager = UserDefaultManager<UserDefaultType>(key: "savedCity")
     
 //    func getCities(searchText: String) {
 //        let request = MKLocalSearch.Request()
@@ -50,6 +51,10 @@ final class SearchInteractor: SearchInteractorProtocol {
         nameService.getCities(searchText: searchText) { [weak self] result in
             self?.presenter?.searchResults(results: result)
         }
+    }
+    
+    func getSaveCities() -> [UserDefaultType] {
+        return userDefaultManager.loadItems() ?? []
     }
     
 }

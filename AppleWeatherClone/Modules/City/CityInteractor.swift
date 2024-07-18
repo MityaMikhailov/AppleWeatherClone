@@ -15,14 +15,15 @@ final class CityInteractor: CityInteractorProtocol {
     let latitude: Double
     let longitude: Double
     let networkManager: NetworkManager<CityWeather>
-    let userDefaultManager: UserDefaultManager<CityWeather>
+    let userDefaultManager: UserDefaultManager<UserDefaultType>
     let parameters: [String: String]
     let baseURL = "https://api.open-meteo.com/v1/"
     let endPoint = "forecast"
     var currentLocation: Bool
+    var name: String
     
-    
-    init(latitude: Double, longitude: Double, currentLocation: Bool) {
+    init(name: String, latitude: Double, longitude: Double, currentLocation: Bool) {
+        self.name = name
         self.latitude = latitude
         self.longitude = longitude
         parameters = [
@@ -40,21 +41,25 @@ final class CityInteractor: CityInteractorProtocol {
                                              apiKey: "",
                                              endPoint: endPoint,
                                              parameters: parameters)
-        self.userDefaultManager = UserDefaultManager<CityWeather>(key: "savedCity")
+        self.userDefaultManager = UserDefaultManager<UserDefaultType>(key: "savedCity")
         self.currentLocation = currentLocation
     }
     
     func saveItem(model: CityWeather) {
         //Нужна текущая локация
         //guard локация равна тогда выбросить
+//        var myModel = model
+//        myModel.name = name
+        
+//        if currentLocation {
+//            userDefaultManager.addFirstItem(myModel)
+//        }
+        let item = UserDefaultType(name: name, latitude: latitude, longitude: longitude)
         if currentLocation {
-            userDefaultManager.addFirstItem(model)
+            userDefaultManager.addFirstItem(item)
         }
-        guard let cities = userDefaultManager.loadItems() else {
-            print("NO")
-            return
-        }
-        print(cities)
+        userDefaultManager.printUserDefaults()
+        
         
     }
     

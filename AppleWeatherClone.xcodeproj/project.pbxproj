@@ -44,6 +44,7 @@
 		4DA56E632C47920E00465657 /* SavedCityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA56E622C47920E00465657 /* SavedCityView.swift */; };
 		4DA56E662C4792B300465657 /* SavedCityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA56E652C4792B300465657 /* SavedCityCell.swift */; };
 		4DA56E692C47950B00465657 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DA56E682C47950B00465657 /* UserDefaultManager.swift */; };
+		4DBEE2BC2C47DFA800BC53A8 /* UserDefaultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DBEE2BB2C47DFA800BC53A8 /* UserDefaultType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +84,7 @@
 		4DA56E622C47920E00465657 /* SavedCityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCityView.swift; sourceTree = "<group>"; };
 		4DA56E652C4792B300465657 /* SavedCityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCityCell.swift; sourceTree = "<group>"; };
 		4DA56E682C47950B00465657 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
+		4DBEE2BB2C47DFA800BC53A8 /* UserDefaultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				4D5678A62C456E5900EC5B1E /* WeatherType.swift */,
+				4DBEE2BB2C47DFA800BC53A8 /* UserDefaultType.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 				4DA56E662C4792B300465657 /* SavedCityCell.swift in Sources */,
 				4D5678AB2C456E8400EC5B1E /* Ext.swift in Sources */,
 				4DA56E692C47950B00465657 /* UserDefaultManager.swift in Sources */,
+				4DBEE2BC2C47DFA800BC53A8 /* UserDefaultType.swift in Sources */,
 				4D8DD4052C46504A0088BF48 /* DayCell.swift in Sources */,
 				4D6D18BD2C45449900FD3B6C /* LoadInteractor.swift in Sources */,
 				4D6D189F2C45435200FD3B6C /* AppDelegate.swift in Sources */,

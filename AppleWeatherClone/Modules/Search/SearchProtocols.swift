@@ -19,6 +19,8 @@ protocol SearchPresenterProtocol: AnyObject {
     func searchResults(results: [SearchResult])
     func getResults() -> [SearchResult]
     func showCityWeather(name: String, latitude: Double, longitude: Double)
+    func getListOfCities() -> [UserDefaultType]
+    func fetchData(latitude: Double, longitude: Double, completion: @escaping(CityWeather) -> Void)
 }
 
 //MARK: Interactor -
@@ -26,6 +28,7 @@ protocol SearchInteractorProtocol: AnyObject {
     
     var presenter: SearchPresenterProtocol?  { get set }
     func getCities(searchText: String)
+    func getSaveCities() -> [UserDefaultType]
 }
 
 //MARK: View -

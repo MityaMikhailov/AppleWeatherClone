@@ -59,4 +59,8 @@ class UserDefaultManager<T: Codable> {
             print("UserDefaults пуст или не удалось получить данные.")
         }
     }
+    
+    func removeAllItems() {
+        UserDefaults.standard.removeObject(forKey: key)
+    }
 }

@@ -1,10 +1,8 @@
-//
 //  SearchViewController.swift
 //  AppleWeatherClone
 //
 //  Created Dmitriy Mikhailov on 16.07.2024.
 //  Copyright © 2024 ___ORGANIZATIONNAME___. All rights reserved.
-//
 //
 
 import UIKit
@@ -53,31 +51,46 @@ final class SearchViewController: UIViewController, SearchViewProtocol {
     
     //MARK: - Setup Title View
     private func setupTitleView() {
+        navigationController?.navigationBar.barTintColor = .clear
+        
         let titleView = UIView()
         let titleLabel = UILabel()
         titleLabel.font = .systemFont(ofSize: 30)
         titleLabel.textColor = .white
         titleLabel.text = "Погода"
         
+        let editButton = UIButton(type: .system)
+        editButton.setTitle("Edit", for: .normal)
+        editButton.setTitleColor(.white, for: .normal)
+        editButton.titleLabel?.font = .systemFont(ofSize: 15)
+        
         titleView.backgroundColor = .clear
         titleView.addSubview(titleLabel)
+        titleView.addSubview(editButton)
         
         titleLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.left.equalToSuperview()
+            $0.left.equalToSuperview().offset(10)
         }
         
+        editButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.right.equalToSuperview()
+        }
+
         navigationItem.titleView = titleView
-        
+
         titleView.snp.makeConstraints {
-            $0.width.equalTo(navigationItem.titleView?.snp.width ?? 0)
-            $0.height.equalTo(navigationItem.titleView?.snp.height ?? 0)
+            $0.width.equalTo(UIScreen.main.bounds.width - 32)
+            $0.height.equalTo(44)
         }
     }
+
     //MARK: - Setup citySearchController
     private func setupCitySearch() {
         navigationItem.searchController = citySearchController
     }
+
     //MARK: - Setup searchTableView
     private func setupSearchTable() {
         view.addSubview(searchTable)
@@ -90,10 +103,11 @@ final class SearchViewController: UIViewController, SearchViewProtocol {
         }
         
     }
+
     //MARK: - Setup SavedCity View
     func setupSavedCityView() {
         savedCityView = SavedCityView(frame: .zero)
-        //savedCityView.configure(name: T##String, model: T##CityWeather)
+        savedCityView.configure(model: presenter?.getListOfCities() ?? [], vc: self)
         view.addSubview(savedCityView)
         savedCityView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
@@ -102,6 +116,7 @@ final class SearchViewController: UIViewController, SearchViewProtocol {
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
         }
     }
+
     //MARK: - Update searchTableView
     func updateSearchTable() {
         searchTable.reloadData()
@@ -110,7 +125,7 @@ final class SearchViewController: UIViewController, SearchViewProtocol {
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard !searchText.isEmpty else { 
+        guard !searchText.isEmpty else {
             searchTable.isHidden = true
             savedCityView.isHidden = false
             return
@@ -144,6 +159,8 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let presenter = presenter else { return }
+        //let userDefaults = UserDefaultManager<CityWeather>(key: "savedCity")
+        
         presenter.showCityWeather(name: presenter.getResults()[indexPath.row].name,
                                   latitude: presenter.getResults()[indexPath.row].latitude,
                                   longitude: presenter.getResults()[indexPath.row].longitude)
