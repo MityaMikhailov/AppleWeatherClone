@@ -104,7 +104,7 @@ final class CityViewController: UIViewController, CityViewProtocol {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             $0.width.equalToSuperview()
         }
-        if !presenter.haveALocation() {
+        if !presenter.haveALocation() && !presenter.isCurrent() {
             headerView.addSubview(addButton)
             headerView.addSubview(cancelButton)
             

@@ -88,6 +88,7 @@ final class CityInteractor: CityInteractorProtocol {
         guard let items = userDefaultManager.loadItems() else { return false }
         for item in items {
             if item.latitude == latitude && item.longitude == longitude {
+                print(item.latitude, "=", latitude)
                 return true
             }
         }

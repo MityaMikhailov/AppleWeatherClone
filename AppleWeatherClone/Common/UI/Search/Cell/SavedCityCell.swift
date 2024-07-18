@@ -66,6 +66,12 @@ class SavedCityCell: UITableViewCell {
         return stack
     }()
     
+    private lazy var savedCell: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 15
+        return view
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -76,8 +82,8 @@ class SavedCityCell: UITableViewCell {
     }
     
     private func setup() {
-        contentView.addSubview(cityConditionStack)
-        contentView.addSubview(temperatureStack)
+        savedCell.addSubview(cityConditionStack)
+        savedCell.addSubview(temperatureStack)
         
         cityConditionStack.snp.makeConstraints {
             $0.top.equalToSuperview().inset(15)
@@ -90,6 +96,15 @@ class SavedCityCell: UITableViewCell {
             $0.top.equalToSuperview().offset(15)
             $0.bottom.equalToSuperview().inset(15)
             $0.right.equalToSuperview().inset(15)
+        }
+        
+        savedCell.backgroundColor = .red
+        
+        contentView.addSubview(savedCell)
+        savedCell.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(10)
+            $0.left.right.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
     }
     

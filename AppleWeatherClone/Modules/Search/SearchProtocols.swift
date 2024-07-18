@@ -11,18 +11,19 @@ import Foundation
 
 //MARK: Wireframe -
 protocol SearchWireframeProtocol: AnyObject {
-    func pushToCityWeather(name: String, latitude: Double, longitude: Double)
+    func pushToCityWeather(name: String, latitude: Double, longitude: Double, currentLocation: Bool)
+    func pushToCityWeatherPage(name: String, latitude: Double, longitude: Double)
 }
 //MARK: Presenter -
 protocol SearchPresenterProtocol: AnyObject {
     func searchCities(searchText: String)
     func searchResults(results: [SearchResult])
     func getResults() -> [SearchResult]
-    func showCityWeather(name: String, latitude: Double, longitude: Double)
+    func showCityWeather(name: String, latitude: Double, longitude: Double, currentLocation: Bool)
+    func showCityWeatherPage(name: String, latitude: Double, longitude: Double)
     func getListOfCities() -> [UserDefaultType]
     func fetchData(latitude: Double, longitude: Double, completion: @escaping(CityWeather) -> Void)
     func updateSavedView()
-    func kek()
 }
 
 //MARK: Interactor -

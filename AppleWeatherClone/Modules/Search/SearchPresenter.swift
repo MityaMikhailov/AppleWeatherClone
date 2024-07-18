@@ -42,14 +42,18 @@ final class SearchPresenter: SearchPresenterProtocol {
         results
     }
     
-    func showCityWeather(name: String, latitude: Double, longitude: Double) {
-        router.pushToCityWeather(name: name, latitude: latitude, longitude: longitude)
+    func showCityWeather(name: String, latitude: Double, longitude: Double, currentLocation: Bool) {
+        router.pushToCityWeather(name: name, latitude: latitude, longitude: longitude, currentLocation: currentLocation)
+    }
+    
+    func showCityWeatherPage(name: String, latitude: Double, longitude: Double) {
+        router.pushToCityWeatherPage(name: name, latitude: latitude, longitude: longitude)
     }
 
     func getListOfCities() -> [UserDefaultType] {
         return interactor?.getSaveCities() ?? []
     }
-    
+    //перенести в интерактор
     func fetchData(latitude: Double, longitude: Double, completion: @escaping(CityWeather) -> Void) {
         let latitude = String(latitude)
         let longitude = String(longitude)
@@ -82,10 +86,6 @@ final class SearchPresenter: SearchPresenterProtocol {
     
     func updateSavedView() {
         view?.updateSavedView()
-    }
-    
-    func kek() {
-        print("kek")
     }
     
 }

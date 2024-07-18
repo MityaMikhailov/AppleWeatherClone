@@ -169,9 +169,8 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let presenter = presenter else { return }
-        //let userDefaults = UserDefaultManager<CityWeather>(key: "savedCity")
         
-        presenter.showCityWeather(name: presenter.getResults()[indexPath.row].name,
+        presenter.showCityWeatherPage(name: presenter.getResults()[indexPath.row].name,
                                   latitude: presenter.getResults()[indexPath.row].latitude,
                                   longitude: presenter.getResults()[indexPath.row].longitude)
     }

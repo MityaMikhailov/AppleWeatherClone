@@ -65,8 +65,7 @@ extension SavedCityView: UITableViewDataSource {
             cell.configure(with: city, name: self.model[indexPath.row].name)
         })
         cell.backgroundColor = .clear
-        cell.contentView.backgroundColor = .green
-        cell.contentView.layer.cornerRadius = 15
+        cell.contentView.backgroundColor = .clear
         return cell
     }
 }
@@ -75,6 +74,12 @@ extension SavedCityView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Тут сделать делегат
         //Делегат должен вызывать презентер который вызывает роутер и показывает фулл экран погоды
+        guard let name = vc.presenter?.getListOfCities()[indexPath.row].name,
+              let latitude = vc.presenter?.getListOfCities()[indexPath.row].latitude,
+              let longitude = vc.presenter?.getListOfCities()[indexPath.row].longitude
+        else { return }
+        let currentLocation = indexPath.row == 0 ? true : false
+        vc.presenter?.showCityWeather(name: name, latitude: latitude, longitude: longitude, currentLocation: currentLocation)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
