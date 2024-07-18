@@ -9,7 +9,6 @@ import Foundation
 
 // MARK: - CityWeather
 struct CityWeather: Codable {
-    var name: String?
     let latitude, longitude, generationtimeMS: Double?
     let utcOffsetSeconds: Int?
     let timezone, timezoneAbbreviation: String?
@@ -22,7 +21,6 @@ struct CityWeather: Codable {
     let daily: Daily?
 
     enum CodingKeys: String, CodingKey {
-        case name
         case latitude, longitude
         case generationtimeMS = "generationtime_ms"
         case utcOffsetSeconds = "utc_offset_seconds"

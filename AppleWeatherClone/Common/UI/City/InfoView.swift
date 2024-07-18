@@ -10,6 +10,16 @@ import SnapKit
 
 class InfoView: UIView {
 
+    private lazy var currentLocationLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Текущее место"
+        label.textAlignment = .center
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 30)
+        label.isHidden = true
+        return label
+    }()
+    
     private lazy var cityLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -52,6 +62,7 @@ class InfoView: UIView {
     private lazy var locationStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
+        stack.addArrangedSubview(currentLocationLabel)
         stack.addArrangedSubview(cityLabel)
         return stack
     }()
@@ -103,7 +114,7 @@ class InfoView: UIView {
         }
     }
     //MARK: - Configure
-    func configure(model: CityWeather, name: String) {
+    func configure(model: CityWeather, name: String, currentLocation: Bool) {
         guard let temperature = model.current?.temperature2M,
               let maxTemp = model.daily?.temperature2MMax?[0],
               let minTemp = model.daily?.temperature2MMin?[0],
@@ -117,6 +128,14 @@ class InfoView: UIView {
         conditionLabel.text = weatherType.description
         maxTempLabel.text = "Макс.: " + maxTemp.getRoundTemp()
         minTempLabel.text = ",мин.: " + minTemp.getRoundTemp()
+        
+        if currentLocation {
+            currentLocationLabel.isHidden = false
+            cityLabel.font = .systemFont(ofSize: 15)
+        } else {
+            currentLocationLabel.isHidden = true
+            cityLabel.font = .systemFont(ofSize: 30)
+        }
     }
 }
 

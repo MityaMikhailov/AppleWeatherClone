@@ -55,4 +55,9 @@ final class CityPresenter: CityPresenterProtocol {
         router.pushToSearch()
     }
     
+    func isCurrent() -> Bool {
+        guard let interactor = interactor else { return false }
+        return interactor.getCurrentLocation()
+    }
+    
 }

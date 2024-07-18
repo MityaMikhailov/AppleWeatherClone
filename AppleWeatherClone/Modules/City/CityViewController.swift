@@ -43,7 +43,6 @@ final class CityViewController: UIViewController, CityViewProtocol {
     //MARK: - Setup Load Indicator View
     private func setupLoadIndicatorView() {
         navigationItem.hidesBackButton = true
-//        navigationController?.navigationBar.isTranslucent = false
         navigationController?.navigationBar.barTintColor = UIColor(named: "BackColor")
         view.backgroundColor = UIColor(named: "BackColor")
         
@@ -102,7 +101,9 @@ final class CityViewController: UIViewController, CityViewProtocol {
         
         guard let presenter = presenter else { return }
         
-        infoView.configure(model: presenter.getModel(), name: presenter.getName())
+    
+        
+        infoView.configure(model: presenter.getModel(), name: presenter.getName(), currentLocation: presenter.isCurrent())
     }
     //MARK: - Setup Hourly View
     private func setupHourlyView() {

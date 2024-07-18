@@ -58,7 +58,6 @@ final class CityInteractor: CityInteractorProtocol {
         if currentLocation {
             userDefaultManager.addFirstItem(item)
         }
-        userDefaultManager.printUserDefaults()
         
         
     }
@@ -72,6 +71,10 @@ final class CityInteractor: CityInteractorProtocol {
                 self?.presenter?.handleFailure(error: failure.localizedDescription)
             }
         }
+    }
+    
+    func getCurrentLocation() -> Bool {
+        return currentLocation
     }
     
 }
