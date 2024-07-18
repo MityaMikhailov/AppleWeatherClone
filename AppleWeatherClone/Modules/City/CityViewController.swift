@@ -29,10 +29,27 @@ final class CityViewController: UIViewController, CityViewProtocol {
     
     let footerView = UIView()
     let citySearchButton = UIButton(type: .system)
+    let headerView = UIView()
     
     private var infoView: InfoView!
     private var hourlyView: HourlyView!
     private var dailyView: DailyView!
+    
+    private lazy var addButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Добавить", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    lazy var cancelButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Отменить", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     //MARK: - View Did Load
 	override func viewDidLoad() {
@@ -66,12 +83,42 @@ final class CityViewController: UIViewController, CityViewProtocol {
     private func setupUI() {
         loadIndicatorView.stopAnimating()
         loadIndicatorView.isHidden = true
-        
+        setupHeaderView()
         setupFooterView()
         setupInfoView()
         setupHourlyView()
         setupDailyView()
         setupConstraints()
+    }
+    //MARK: - Setup Header View
+    private func setupHeaderView() {
+        guard let presenter = presenter else {return}
+        view.addSubview(headerView)
+        headerView.backgroundColor = .clear
+        headerView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.width.equalToSuperview()
+        }
+        if !presenter.haveALocation() {
+            
+            
+            headerView.addSubview(addButton)
+            headerView.addSubview(cancelButton)
+            
+            addButton.snp.makeConstraints {
+                $0.right.equalToSuperview().inset(15)
+                $0.centerY.equalToSuperview()
+            }
+            
+            cancelButton.snp.makeConstraints {
+                $0.left.equalToSuperview().inset(15)
+                $0.centerY.equalToSuperview()
+            }
+            
+            headerView.snp.makeConstraints {
+                $0.height.equalTo(44)
+            }
+        }
     }
     //MARK: - Setup Footer View
     private func setupFooterView() {
@@ -123,7 +170,7 @@ final class CityViewController: UIViewController, CityViewProtocol {
         
         weatherScrollView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.top.equalTo(headerView.snp.bottom)
             $0.bottom.equalTo(footerView.snp.top)
         }
         
@@ -151,6 +198,15 @@ final class CityViewController: UIViewController, CityViewProtocol {
     
     @objc private func searchButtonTapped() {
         presenter?.showSearchScreen()
+    }
+    
+    @objc private func addButtonTapped() {
+        presenter?.addButtonPressed()
+        dismiss(animated: true)
+    }
+    
+    @objc private func cancelButtonTapped() {
+        dismiss(animated: true)
     }
     
     func updateView() {

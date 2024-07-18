@@ -60,4 +60,13 @@ final class CityPresenter: CityPresenterProtocol {
         return interactor.getCurrentLocation()
     }
     
+    func haveALocation() -> Bool {
+        guard let interactor = interactor else { return false }
+        return interactor.getCurrentLocation()
+    }
+    
+    func addButtonPressed() {
+        interactor?.saveSelectItem()
+    }
+    
 }

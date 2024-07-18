@@ -22,6 +22,8 @@ protocol CityPresenterProtocol: AnyObject {
     func getName() -> String
     func showSearchScreen()
     func isCurrent() -> Bool
+    func haveALocation() -> Bool
+    func addButtonPressed()
 }
 
 //MARK: Interactor -
@@ -31,6 +33,8 @@ protocol CityInteractorProtocol: AnyObject {
     func fetchData()
     func saveItem(model: CityWeather)
     func getCurrentLocation() -> Bool
+    func getHavesLocation() -> Bool
+    func saveSelectItem()
 }
 
 //MARK: View -
