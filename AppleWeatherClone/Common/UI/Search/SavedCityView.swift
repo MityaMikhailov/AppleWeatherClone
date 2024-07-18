@@ -45,6 +45,12 @@ class SavedCityView: UIView {
         self.vc = vc
     }
     
+    func updateTable(model: [UserDefaultType]) {
+        print("update")
+        self.model = model
+        savedCityTable.reloadData()
+    }
+    
 }
 
 extension SavedCityView: UITableViewDataSource {

@@ -11,28 +11,32 @@ class SavedCityCell: UITableViewCell {
     
     private lazy var cityLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .white
         return label
     }()
     
     private lazy var conditionLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .white
         return label
     }()
     
     private lazy var currentTempLabel: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = .white
         label.textAlignment = .right
         return label
     }()
     
     private lazy var maxTempLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .white
         return label
     }()
     
     private lazy var minTempLabel: UILabel = {
         let label = UILabel()
+        label.textColor = .white
         return label
     }()
     

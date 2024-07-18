@@ -121,6 +121,16 @@ final class SearchViewController: UIViewController, SearchViewProtocol {
     func updateSearchTable() {
         searchTable.reloadData()
     }
+    
+    func updateSavedView() {
+        guard let presenter = presenter else { return }
+        citySearchController.searchBar.searchTextField.resignFirstResponder()
+        citySearchController.searchBar.text = ""
+        searchTable.isHidden = true
+        savedCityView.isHidden = false
+        citySearchController.dismiss(animated: true)
+        savedCityView.updateTable(model: presenter.getListOfCities())
+    }
 }
 
 extension SearchViewController: UISearchBarDelegate {

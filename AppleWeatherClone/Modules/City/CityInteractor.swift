@@ -55,8 +55,10 @@ final class CityInteractor: CityInteractorProtocol {
 //            userDefaultManager.addFirstItem(myModel)
 //        }
         let item = UserDefaultType(name: name, latitude: latitude, longitude: longitude)
+//        let item = [UserDefaultType(name: name, latitude: latitude, longitude: longitude)]
         if currentLocation {
             userDefaultManager.addFirstItem(item)
+            //userDefaultManager.saveItem(item)
         }
         
         

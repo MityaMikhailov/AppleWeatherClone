@@ -10,6 +10,7 @@
 import UIKit
 
 final class SearchPresenter: SearchPresenterProtocol {
+    
 
     weak private var view: SearchViewProtocol?
     var interactor: SearchInteractorProtocol?
@@ -77,6 +78,14 @@ final class SearchPresenter: SearchPresenterProtocol {
                 print(failure.localizedDescription)
             }
         }
+    }
+    
+    func updateSavedView() {
+        view?.updateSavedView()
+    }
+    
+    func kek() {
+        print("kek")
     }
     
 }

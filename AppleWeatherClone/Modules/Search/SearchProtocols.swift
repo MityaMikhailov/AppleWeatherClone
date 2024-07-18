@@ -21,6 +21,8 @@ protocol SearchPresenterProtocol: AnyObject {
     func showCityWeather(name: String, latitude: Double, longitude: Double)
     func getListOfCities() -> [UserDefaultType]
     func fetchData(latitude: Double, longitude: Double, completion: @escaping(CityWeather) -> Void)
+    func updateSavedView()
+    func kek()
 }
 
 //MARK: Interactor -
@@ -36,4 +38,5 @@ protocol SearchViewProtocol: AnyObject {
     
     var presenter: SearchPresenterProtocol?  { get set }
     func updateSearchTable()
+    func updateSavedView()
 }

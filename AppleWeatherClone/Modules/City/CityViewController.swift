@@ -51,12 +51,15 @@ final class CityViewController: UIViewController, CityViewProtocol {
         return button
     }()
     
+    var updateSavedCitiesClosure: (() -> Void)?
+    
     //MARK: - View Did Load
-	override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         setupLoadIndicatorView()
         presenter?.viewDidLoad()
     }
+
     //MARK: - Setup Load Indicator View
     private func setupLoadIndicatorView() {
         navigationItem.hidesBackButton = true
@@ -79,6 +82,7 @@ final class CityViewController: UIViewController, CityViewProtocol {
             $0.centerY.equalToSuperview()
         }
     }
+
     //MARK: - Setup UI
     private func setupUI() {
         loadIndicatorView.stopAnimating()
@@ -90,9 +94,10 @@ final class CityViewController: UIViewController, CityViewProtocol {
         setupDailyView()
         setupConstraints()
     }
+
     //MARK: - Setup Header View
     private func setupHeaderView() {
-        guard let presenter = presenter else {return}
+        guard let presenter = presenter else { return }
         view.addSubview(headerView)
         headerView.backgroundColor = .clear
         headerView.snp.makeConstraints {
@@ -100,8 +105,6 @@ final class CityViewController: UIViewController, CityViewProtocol {
             $0.width.equalToSuperview()
         }
         if !presenter.haveALocation() {
-            
-            
             headerView.addSubview(addButton)
             headerView.addSubview(cancelButton)
             
@@ -120,6 +123,7 @@ final class CityViewController: UIViewController, CityViewProtocol {
             }
         }
     }
+
     //MARK: - Setup Footer View
     private func setupFooterView() {
         footerView.backgroundColor = UIColor(named: "BackColor")
@@ -130,7 +134,6 @@ final class CityViewController: UIViewController, CityViewProtocol {
             $0.left.right.equalToSuperview()
             $0.height.equalToSuperview().multipliedBy(0.07)
         }
-        
         
         citySearchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
         citySearchButton.setImage(UIImage(named: "menu"), for: .normal)
@@ -143,31 +146,27 @@ final class CityViewController: UIViewController, CityViewProtocol {
             $0.bottom.equalToSuperview().inset(15)
         }
     }
+
     //MARK: - Setup Info View
     private func setupInfoView() {
-        
         guard let presenter = presenter else { return }
-        
-    
-        
         infoView.configure(model: presenter.getModel(), name: presenter.getName(), currentLocation: presenter.isCurrent())
     }
+
     //MARK: - Setup Hourly View
     private func setupHourlyView() {
-        
         guard let presenter = presenter else { return }
-        
         hourlyView.configureScrollView(with: presenter.getModel())
     }
+
     //MARK: - Setup Daily View
     private func setupDailyView() {
         guard let presenter = presenter else { return }
-        
         dailyView.configure(model: presenter.getModel())
     }
+
     //MARK: - Setup Constraints
     private func setupConstraints() {
-        
         weatherScrollView.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.top.equalTo(headerView.snp.bottom)
@@ -191,18 +190,17 @@ final class CityViewController: UIViewController, CityViewProtocol {
             $0.centerX.equalToSuperview()
             $0.width.equalTo(hourlyView.snp.width)
         }
-        
-        
-        
     }
-    
+
     @objc private func searchButtonTapped() {
         presenter?.showSearchScreen()
     }
     
     @objc private func addButtonTapped() {
         presenter?.addButtonPressed()
-        dismiss(animated: true)
+        dismiss(animated: true) {
+            self.updateSavedCitiesClosure?()
+        }
     }
     
     @objc private func cancelButtonTapped() {
@@ -212,7 +210,6 @@ final class CityViewController: UIViewController, CityViewProtocol {
     func updateView() {
         setupUI()
     }
-
 }
 
 extension CityViewController {
