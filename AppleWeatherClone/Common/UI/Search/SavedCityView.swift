@@ -12,7 +12,7 @@ protocol SavedCityViewDelegate: AnyObject {
     func showCityWeather(name: String, latitude: Double, longitude: Double, currentLocation: Bool)
     func removeCity(at index: Int)
     func getListOfCities() -> [UserDefaultType]
-    func fetchData(latitude: Double, longitude: Double, completion: @escaping(CityWeather) -> Void)
+    func getWeatherData(latitude: Double, longitude: Double, completion: @escaping(CityWeather) -> Void)
 }
 
 class SavedCityView: UIView {
@@ -53,7 +53,6 @@ class SavedCityView: UIView {
     }
     
     func updateTable(model: [UserDefaultType]) {
-        print("update")
         self.model = model
         savedCityTable.reloadData()
     }
@@ -75,7 +74,7 @@ extension SavedCityView: UITableViewDataSource {
         let longitude = model[indexPath.row].longitude
         let cityName = model[indexPath.row].name
         
-        delegate?.fetchData(latitude: latitude, longitude: longitude) { city in
+        delegate?.getWeatherData(latitude: latitude, longitude: longitude) { city in
             let name = indexPath.row == 0 ? "Текущее место" : cityName
             cell.configure(with: city, name: name)
         }

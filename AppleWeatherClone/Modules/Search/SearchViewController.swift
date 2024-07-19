@@ -192,7 +192,7 @@ extension SearchViewController: SavedCityViewDelegate {
         return listOfCities
     }
     
-    func fetchData(latitude: Double, longitude: Double, completion: @escaping (CityWeather) -> Void) {
-        presenter?.fetchData(latitude: latitude, longitude: longitude, completion: completion)
+    func getWeatherData(latitude: Double, longitude: Double, completion: @escaping (CityWeather) -> Void) {
+        presenter?.getWeatherData(latitude: latitude, longitude: longitude, completion: completion)
     }
 }

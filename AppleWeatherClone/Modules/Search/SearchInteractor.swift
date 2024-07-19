@@ -15,37 +15,7 @@ final class SearchInteractor: SearchInteractorProtocol {
     weak var presenter: SearchPresenterProtocol?
     let nameService = NameService(lallitude: 0, longitude: 0)
     let userDefaultManager = UserDefaultManager<UserDefaultType>(key: "savedCity")
-    
-//    func getCities(searchText: String) {
-//        let request = MKLocalSearch.Request()
-//        request.naturalLanguageQuery = searchText
-//        
-//        let search = MKLocalSearch(request: request)
-//        search.start { [weak self] (response, error) in
-//            guard let response = response else {
-//                print("Error: \(error?.localizedDescription ?? "Unknown error")")
-//                return
-//            }
-//            
-//            self?.result = []
-//            
-//            self?.matchingItems = response.mapItems
-//            
-//            
-//            for city in self!.matchingItems  {
-//                guard let cityName = city.name,
-//                      let country = city.placemark.country else { return }
-//                let latitude = city.placemark.coordinate.latitude
-//                let longitude = city.placemark.coordinate.longitude
-//                
-//                let r = SearchResult(name: cityName, country: country, latitude: latitude, longitude: longitude)
-//                self?.result.append(r)
-//            }
-//            guard let result = self?.result else { return }
-//            self?.presenter?.searchResults(results: result)
-//        }
-//        
-//    }
+    var networkManager: NetworkManager<CityWeather>!
     
     func getCities(searchText: String) {
         nameService.getCities(searchText: searchText) { [weak self] result in
@@ -64,6 +34,36 @@ final class SearchInteractor: SearchInteractorProtocol {
         
         userDefaultManager.saveItem(result)
         
+    }
+    
+    func fetchData(latitude: Double, longitude: Double, completion: @escaping(CityWeather) -> Void) {
+        let latitude = String(latitude)
+        let longitude = String(longitude)
+        let baseURL = "https://api.open-meteo.com/v1/"
+        let endPoint = "forecast"
+        let parameters = [
+            "latitude": String(latitude),
+            "longitude": String(longitude),
+            "current": "temperature_2m,is_day,weather_code",
+            "hourly": "temperature_2m,weather_code",
+            "daily": "weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset",
+            "timezone": "auto",
+            "forecast_days": "14"
+        ]
+        
+        self.networkManager = NetworkManager(baseURL:
+                                                baseURL,
+                                             apiKey: "",
+                                             endPoint: endPoint,
+                                             parameters: parameters)
+        networkManager.fetchData { result in
+            switch result {
+            case .success(let success):
+                completion(success)
+            case .failure(let failure):
+                print(failure.localizedDescription)
+            }
+        }
     }
     
 }

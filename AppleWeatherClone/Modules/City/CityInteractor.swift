@@ -46,22 +46,10 @@ final class CityInteractor: CityInteractorProtocol {
     }
     
     func saveItem(model: CityWeather) {
-//        Нужна текущая локация
-//        guard локация равна тогда выбросить
-//        var myModel = model
-//        myModel.name = name
-//        
-//        if currentLocation {
-//            userDefaultManager.addFirstItem(myModel)
-//        }
         let item = UserDefaultType(name: name, latitude: latitude, longitude: longitude)
-//        let item = [UserDefaultType(name: name, latitude: latitude, longitude: longitude)]
         if currentLocation {
             userDefaultManager.addFirstItem(item)
-            //userDefaultManager.saveItem(item)
         }
-        
-        
     }
     
     func saveSelectItem() {
@@ -88,7 +76,6 @@ final class CityInteractor: CityInteractorProtocol {
         guard let items = userDefaultManager.loadItems() else { return false }
         for item in items {
             if item.latitude == latitude && item.longitude == longitude {
-                print(item.latitude, "=", latitude)
                 return true
             }
         }
