@@ -9,6 +9,12 @@ import UIKit
 
 class SavedCityCell: UITableViewCell {
     
+    private lazy var savedCellView: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 15
+        return view
+    }()
+    
     private lazy var backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -17,15 +23,25 @@ class SavedCityCell: UITableViewCell {
         return imageView
     }()
     
+    private lazy var currentLocationLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.text = "Текущее место"
+        return label
+    }()
+    
     private lazy var cityLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
+        label.font = .systemFont(ofSize: 20, weight: .bold)
         return label
     }()
     
     private lazy var conditionLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
+        label.font = .systemFont(ofSize: 17)
         return label
     }()
     
@@ -33,28 +49,22 @@ class SavedCityCell: UITableViewCell {
         let label = UILabel()
         label.textColor = .white
         label.textAlignment = .right
+        label.font = .systemFont(ofSize: 40)
         return label
     }()
     
     private lazy var maxTempLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
+        label.font = .systemFont(ofSize: 17)
         return label
     }()
     
     private lazy var minTempLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
+        label.font = .systemFont(ofSize: 17)
         return label
-    }()
-    
-    private lazy var cityConditionStack: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.addArrangedSubview(cityLabel)
-        stack.addArrangedSubview(conditionLabel)
-        stack.spacing = 15
-        return stack
     }()
     
     private lazy var maxMinTempStack: UIStackView = {
@@ -65,19 +75,37 @@ class SavedCityCell: UITableViewCell {
         return stack
     }()
     
-    private lazy var temperatureStack: UIStackView = {
+    private lazy var cityStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
-        stack.addArrangedSubview(currentTempLabel)
-        stack.addArrangedSubview(maxMinTempStack)
-        stack.spacing = 15
+        stack.addArrangedSubview(cityLabel)
         return stack
     }()
     
-    private lazy var savedCell: UIView = {
-        let view = UIView()
-        view.layer.cornerRadius = 15
-        return view
+    private lazy var cityTemperatureStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.addArrangedSubview(cityStack)
+        stack.addArrangedSubview(currentTempLabel)
+        return stack
+    }()
+    
+    private lazy var conditionMaxMinStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.addArrangedSubview(conditionLabel)
+        stack.addArrangedSubview(maxMinTempStack)
+        return stack
+    }()
+    
+    private lazy var cellStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 15
+        stack.distribution = .fill
+        stack.addArrangedSubview(cityTemperatureStack)
+        stack.addArrangedSubview(conditionMaxMinStack)
+        return stack
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -91,43 +119,43 @@ class SavedCityCell: UITableViewCell {
     
     private func setup() {
         self.selectionStyle = .none
-        savedCell.addSubview(backgroundImageView)
-        savedCell.addSubview(cityConditionStack)
-        savedCell.addSubview(temperatureStack)
+        savedCellView.addSubview(backgroundImageView)
+        savedCellView.addSubview(cellStack)
         
         backgroundImageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         
-        cityConditionStack.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(15)
-            $0.left.equalToSuperview().offset(15)
-            $0.bottom.equalToSuperview().inset(15)
-        }
-        
-        temperatureStack.snp.makeConstraints {
-            $0.left.equalTo(cityConditionStack.snp.right).offset(15)
+        cellStack.snp.makeConstraints {
             $0.top.equalToSuperview().offset(15)
-            $0.bottom.equalToSuperview().inset(15)
+            $0.left.equalToSuperview().offset(15)
             $0.right.equalToSuperview().inset(15)
+            $0.bottom.equalToSuperview().inset(15)
         }
         
-        savedCell.backgroundColor = .clear
+        savedCellView.backgroundColor = .clear
         
-        contentView.addSubview(savedCell)
-        savedCell.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(20)
+        contentView.addSubview(savedCellView)
+        
+        savedCellView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(10)
             $0.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(10)
         }
     }
     
-    func configure(with model: CityWeather, name: String) {
+    func configure(with model: CityWeather, name: String, index: Int) {
         guard let isDay = model.current?.isDay,
               let weatherCode = model.current?.weatherCode,
               let minTemp = model.daily?.temperature2MMin?[0],
               let maxTemp = model.daily?.temperature2MMax?[0] else { return }
         let weatherType = isDay == 1 ? WeatherType.day(DayWeatherType(rawValue: weatherCode)!) : WeatherType.night(NightWeatherType(rawValue: weatherCode)!)
+        
+        if index == 0 {
+            cityStack.insertArrangedSubview(currentLocationLabel, at: 0)
+            cityLabel.font = .systemFont(ofSize: conditionLabel.font.pointSize, weight: .regular)
+        }
+        
         backgroundImageView.image = UIImage(named: weatherType.backgroundImageName)
         cityLabel.text = name
         currentTempLabel.text = model.current?.temperature2M?.getRoundTemp()

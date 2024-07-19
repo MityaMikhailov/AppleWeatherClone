@@ -203,7 +203,6 @@ final class CityViewController: UIViewController, CityViewProtocol {
     @objc private func addButtonTapped() {
         presenter?.addButtonPressed()
         dismiss(animated: true) { [weak self] in
-//            self.updateSavedCitiesClosure?()
             self?.delegate?.updateSavedCities()
         }
     }

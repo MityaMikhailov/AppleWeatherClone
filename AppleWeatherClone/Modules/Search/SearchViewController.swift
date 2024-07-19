@@ -59,23 +59,12 @@ final class SearchViewController: UIViewController, SearchViewProtocol {
         titleLabel.textColor = .white
         titleLabel.text = "Погода"
         
-        let editButton = UIButton(type: .system)
-        editButton.setTitle("Edit", for: .normal)
-        editButton.setTitleColor(.white, for: .normal)
-        editButton.titleLabel?.font = .systemFont(ofSize: 15)
-        
         titleView.backgroundColor = .clear
         titleView.addSubview(titleLabel)
-        titleView.addSubview(editButton)
         
         titleLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.left.equalToSuperview().offset(10)
-        }
-        
-        editButton.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.right.equalToSuperview()
         }
 
         navigationItem.titleView = titleView

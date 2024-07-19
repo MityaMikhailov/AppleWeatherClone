@@ -75,8 +75,7 @@ extension SavedCityView: UITableViewDataSource {
         let cityName = model[indexPath.row].name
         
         delegate?.getWeatherData(latitude: latitude, longitude: longitude) { city in
-            let name = indexPath.row == 0 ? "Текущее место" : cityName
-            cell.configure(with: city, name: name)
+            cell.configure(with: city, name: cityName, index: indexPath.row)
         }
         
         return cell
@@ -103,7 +102,7 @@ extension SavedCityView: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 130
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
