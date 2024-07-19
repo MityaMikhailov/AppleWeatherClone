@@ -44,9 +44,9 @@ final class SearchViewController: UIViewController, SearchViewProtocol {
         view.backgroundColor = .black
         navigationItem.hidesBackButton = true
         setupTitleView()
-        setupCitySearch()
         setupSavedCityView()
         setupSearchTable()
+        setupCitySearch()
     }
     
     //MARK: - Setup Title View
@@ -89,6 +89,7 @@ final class SearchViewController: UIViewController, SearchViewProtocol {
     //MARK: - Setup citySearchController
     private func setupCitySearch() {
         navigationItem.searchController = citySearchController
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
 
     //MARK: - Setup searchTableView

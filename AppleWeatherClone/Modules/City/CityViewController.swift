@@ -141,8 +141,8 @@ final class CityViewController: UIViewController, CityViewProtocol {
         footerView.addSubview(citySearchButton)
         
         citySearchButton.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(5)
-            $0.right.equalToSuperview().inset(12)
+            $0.top.equalToSuperview()
+            $0.right.equalToSuperview().inset(15)
             $0.bottom.equalToSuperview().inset(15)
         }
     }

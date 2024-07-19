@@ -29,4 +29,6 @@ final class LoadPresenter: LoadPresenterProtocol {
         router.showCityWeather(name: name, latitude: latitude, longitude: longitude)
     }
     
+    
+    
 }
