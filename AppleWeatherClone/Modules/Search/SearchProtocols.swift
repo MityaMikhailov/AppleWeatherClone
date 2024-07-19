@@ -23,7 +23,6 @@ protocol SearchPresenterProtocol: AnyObject {
     func showCityWeatherPage(name: String, latitude: Double, longitude: Double)
     func getListOfCities() -> [UserDefaultType]
     func getWeatherData(latitude: Double, longitude: Double, completion: @escaping(CityWeather) -> Void)
-    func updateSavedView()
     func removeCity(at: Int)
 }
 
@@ -42,5 +41,4 @@ protocol SearchViewProtocol: AnyObject {
     
     var presenter: SearchPresenterProtocol?  { get set }
     func updateSearchTable()
-    func updateSavedView()
 }

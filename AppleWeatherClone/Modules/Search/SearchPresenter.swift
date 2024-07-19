@@ -63,8 +63,4 @@ final class SearchPresenter: SearchPresenterProtocol {
         interactor?.fetchData(latitude: latitude, longitude: longitude, completion: completion)
     }
     
-    func updateSavedView() {
-        view?.updateSavedView()
-    }
-    
 }

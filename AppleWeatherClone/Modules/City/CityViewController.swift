@@ -10,9 +10,14 @@
 import UIKit
 import SnapKit
 
+protocol CityDelegate: AnyObject {
+    func updateSavedCities()
+}
+
 final class CityViewController: UIViewController, CityViewProtocol {
 
 	var presenter: CityPresenterProtocol?
+    weak var delegate: CityDelegate?
     
     private lazy var loadIndicatorView: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
@@ -51,7 +56,6 @@ final class CityViewController: UIViewController, CityViewProtocol {
         return button
     }()
     
-    var updateSavedCitiesClosure: (() -> Void)?
     
     //MARK: - View Did Load
     override func viewDidLoad() {
@@ -198,8 +202,9 @@ final class CityViewController: UIViewController, CityViewProtocol {
     
     @objc private func addButtonTapped() {
         presenter?.addButtonPressed()
-        dismiss(animated: true) {
-            self.updateSavedCitiesClosure?()
+        dismiss(animated: true) { [weak self] in
+//            self.updateSavedCitiesClosure?()
+            self?.delegate?.updateSavedCities()
         }
     }
     

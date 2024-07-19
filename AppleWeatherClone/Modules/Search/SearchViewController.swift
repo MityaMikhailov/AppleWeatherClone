@@ -123,16 +123,6 @@ final class SearchViewController: UIViewController, SearchViewProtocol {
     func updateSearchTable() {
         searchTable.reloadData()
     }
-    //MARK: - updateSavedView
-    func updateSavedView() {
-        guard let presenter = presenter else { return }
-        citySearchController.searchBar.searchTextField.resignFirstResponder()
-        citySearchController.searchBar.text = ""
-        searchTable.isHidden = true
-        savedCityView.isHidden = false
-        citySearchController.dismiss(animated: true)
-        savedCityView.updateTable(model: presenter.getListOfCities())
-    }
 }
 //MARK: - UISearchBarDelegate
 extension SearchViewController: UISearchBarDelegate {
@@ -195,5 +185,17 @@ extension SearchViewController: SavedCityViewDelegate {
     
     func getWeatherData(latitude: Double, longitude: Double, completion: @escaping (CityWeather) -> Void) {
         presenter?.getWeatherData(latitude: latitude, longitude: longitude, completion: completion)
+    }
+}
+//MARK: - City Delegate
+extension SearchViewController: CityDelegate {
+    func updateSavedCities() {
+        guard let presenter = presenter else { return }
+        citySearchController.searchBar.searchTextField.resignFirstResponder()
+        citySearchController.searchBar.text = ""
+        searchTable.isHidden = true
+        savedCityView.isHidden = false
+        citySearchController.dismiss(animated: true)
+        savedCityView.updateTable(model: presenter.getListOfCities())
     }
 }

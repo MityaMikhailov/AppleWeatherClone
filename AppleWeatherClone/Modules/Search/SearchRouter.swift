@@ -35,12 +35,11 @@ final class SearchRouter: SearchWireframeProtocol {
     
     func pushToCityWeatherPage(name: String, latitude: Double, longitude: Double) {
         guard let cityViewController = CityRouter.createModule(latitude: latitude, longitude: longitude, name: name, currentLocation: false) as? CityViewController else { return }
-        // Здесь нужно чекнуть имеется ли уже широта и долгота и если да, то показывать полный экран, если нет, то показывать pageSheet и кнопку добавить
-        cityViewController.modalPresentationStyle = .pageSheet
-        let searchViewController = viewController as? SearchViewController
         
-        cityViewController.updateSavedCitiesClosure = {
-            searchViewController?.presenter?.updateSavedView()
+        cityViewController.modalPresentationStyle = .pageSheet
+        
+        if let searchViewController = viewController as? SearchViewController {
+            cityViewController.delegate = searchViewController
         }
         
         viewController?.navigationController?.present(cityViewController, animated: true)
