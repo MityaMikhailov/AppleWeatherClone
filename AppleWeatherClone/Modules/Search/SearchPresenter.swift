@@ -53,6 +53,11 @@ final class SearchPresenter: SearchPresenterProtocol {
     func getListOfCities() -> [UserDefaultType] {
         return interactor?.getSaveCities() ?? []
     }
+    
+    func removeCity(at: Int) {
+        guard let interactor = interactor else { return }
+        interactor.removeCity(index: at)
+    }
     //перенести в интерактор
     func fetchData(latitude: Double, longitude: Double, completion: @escaping(CityWeather) -> Void) {
         let latitude = String(latitude)

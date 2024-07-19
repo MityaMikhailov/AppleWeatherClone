@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 final class SearchViewController: UIViewController, SearchViewProtocol {
-
+    
     var presenter: SearchPresenterProtocol?
     
     private lazy var citySearchController: UISearchController = {
@@ -107,7 +107,8 @@ final class SearchViewController: UIViewController, SearchViewProtocol {
     //MARK: - Setup SavedCity View
     func setupSavedCityView() {
         savedCityView = SavedCityView(frame: .zero)
-        savedCityView.configure(model: presenter?.getListOfCities() ?? [], vc: self)
+        savedCityView.configure(model: presenter?.getListOfCities() ?? [])
+        savedCityView.delegate = self
         view.addSubview(savedCityView)
         savedCityView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
@@ -121,7 +122,7 @@ final class SearchViewController: UIViewController, SearchViewProtocol {
     func updateSearchTable() {
         searchTable.reloadData()
     }
-    
+    //MARK: - updateSavedView
     func updateSavedView() {
         guard let presenter = presenter else { return }
         citySearchController.searchBar.searchTextField.resignFirstResponder()
@@ -132,7 +133,7 @@ final class SearchViewController: UIViewController, SearchViewProtocol {
         savedCityView.updateTable(model: presenter.getListOfCities())
     }
 }
-
+//MARK: - UISearchBarDelegate
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard !searchText.isEmpty else {
@@ -150,7 +151,7 @@ extension SearchViewController: UISearchBarDelegate {
         savedCityView.isHidden = false
     }
 }
-
+//MARK: - UITableViewDataSource
 extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let presenter = presenter else { return 0 }
@@ -161,11 +162,12 @@ extension SearchViewController: UITableViewDataSource {
         let cell = UITableViewCell()
         cell.backgroundColor = .clear
         cell.textLabel?.textColor = .white
+        cell.selectionStyle = .none
         cell.textLabel?.text = (presenter?.getResults()[indexPath.row].name ?? "") + "," + (presenter?.getResults()[indexPath.row].country ?? "")
         return cell
     }
 }
-
+//MARK: - UITableViewDelegate
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let presenter = presenter else { return }
@@ -173,5 +175,24 @@ extension SearchViewController: UITableViewDelegate {
         presenter.showCityWeatherPage(name: presenter.getResults()[indexPath.row].name,
                                   latitude: presenter.getResults()[indexPath.row].latitude,
                                   longitude: presenter.getResults()[indexPath.row].longitude)
+    }
+}
+//MARK: - SavedCityViewDelegate
+extension SearchViewController: SavedCityViewDelegate {
+    func showCityWeather(name: String, latitude: Double, longitude: Double, currentLocation: Bool) {
+        presenter?.showCityWeather(name: name, latitude: latitude, longitude: longitude, currentLocation: currentLocation)
+    }
+    
+    func removeCity(at index: Int) {
+        presenter?.removeCity(at: index)
+    }
+    
+    func getListOfCities() -> [UserDefaultType] {
+        guard let listOfCities = presenter?.getListOfCities() else { return [] }
+        return listOfCities
+    }
+    
+    func fetchData(latitude: Double, longitude: Double, completion: @escaping (CityWeather) -> Void) {
+        presenter?.fetchData(latitude: latitude, longitude: longitude, completion: completion)
     }
 }

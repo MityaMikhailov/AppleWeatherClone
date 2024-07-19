@@ -57,4 +57,13 @@ final class SearchInteractor: SearchInteractorProtocol {
         return userDefaultManager.loadItems() ?? []
     }
     
+    func removeCity(index: Int) {
+        guard var result = userDefaultManager.loadItems() else { return }
+        
+        result.remove(at: index)
+        
+        userDefaultManager.saveItem(result)
+        
+    }
+    
 }

@@ -24,6 +24,7 @@ protocol SearchPresenterProtocol: AnyObject {
     func getListOfCities() -> [UserDefaultType]
     func fetchData(latitude: Double, longitude: Double, completion: @escaping(CityWeather) -> Void)
     func updateSavedView()
+    func removeCity(at: Int)
 }
 
 //MARK: Interactor -
@@ -32,6 +33,7 @@ protocol SearchInteractorProtocol: AnyObject {
     var presenter: SearchPresenterProtocol?  { get set }
     func getCities(searchText: String)
     func getSaveCities() -> [UserDefaultType]
+    func removeCity(index: Int)
 }
 
 //MARK: View -
