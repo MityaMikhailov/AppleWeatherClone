@@ -29,7 +29,7 @@ class DayCell: UITableViewCell {
     private lazy var tempProgressView: UIProgressView = {
         let progressView = UIProgressView()
         progressView.backgroundColor = .gray
-        progressView.progress = 0.5
+//        progressView.progress = 0.5
         progressView.layer.masksToBounds = true
         progressView.layer.cornerRadius = 5
         progressView.progressTintColor = .orange
@@ -94,19 +94,25 @@ class DayCell: UITableViewCell {
         }
     }
     //MARK: - Configure
-    func configure(model: CityWeather, index: Int) {
+    func configure(model: CityWeather, index: Int, avverageTemperature: Double) {
         guard let day = model.daily?.time?[index],
               let dailyWeatherCode = model.daily?.weatherCode?[index],
               let minTemp = model.daily?.temperature2MMin?[index],
-              let maxTemp = model.daily?.temperature2MMax?[index]
+              let maxTemp = model.daily?.temperature2MMax?[index],
+              let minTemperature = model.daily?.temperature2MMin?.min(),
+              let maxTemperature = model.daily?.temperature2MMax?.max()
         else { return }
         
         let weatherType = WeatherType.day(DayWeatherType(rawValue: dailyWeatherCode)!)
+        let normalizedValue = (avverageTemperature - minTemperature) / (maxTemperature - minTemperature)
         
         timeLabel.text = index == 0 ? "Сегодня" : getDay(date: day)
         weatherImageView.image = UIImage(named: weatherType.imageName)
         minTempLabel.text = minTemp.getRoundTemp()
         maxTempLabel.text = maxTemp.getRoundTemp()
+        DispatchQueue.main.async { [weak self] in
+            self?.tempProgressView.setProgress(Float(normalizedValue), animated: true)
+        }
     }
     
     private func getDay(date: String) -> String {

@@ -106,8 +106,8 @@ extension SavedCityView: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-            return indexPath.row != 0
-        }
+        return indexPath.row != 0
+    }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard indexPath.row != 0 else { return nil }

@@ -66,6 +66,21 @@ class DailyView: UIView {
         dailyTableView.removeObserver(self, forKeyPath: "contentSize")
     }
     
+    func calculateDailyAverageTemperatures(for temperatures: [Double], days: Int) -> [Double] {
+        let hoursPerDay = 24
+        var dailyAverages = [Double]()
+        
+        for day in 0..<days {
+            let startIndex = day * hoursPerDay
+            let endIndex = startIndex + hoursPerDay
+            let dailyTemperatures = temperatures[startIndex..<endIndex]
+            let dailyAverage = dailyTemperatures.reduce(0, +) / Double(hoursPerDay)
+            dailyAverages.append(dailyAverage)
+        }
+        
+        return dailyAverages
+    }
+    
 }
 //MARK: - UI TableView Data Source
 extension DailyView: UITableViewDataSource {
@@ -76,8 +91,12 @@ extension DailyView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DayCell", for: indexPath) as? DayCell,
-              let model = model else { return UITableViewCell() }
-        cell.configure(model: model, index: indexPath.row)
+              let model = model,
+              let hourlyTemperatures = model.hourly?.temperature2M,
+              let countDays = model.daily?.time?.count
+        else { return UITableViewCell() }
+        let avverageTemperatures = calculateDailyAverageTemperatures(for: hourlyTemperatures, days: countDays)
+        cell.configure(model: model, index: indexPath.row, avverageTemperature: avverageTemperatures[indexPath.row])
         return cell
     }
     
