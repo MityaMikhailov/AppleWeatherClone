@@ -91,7 +91,7 @@ extension SavedCityView: UITableViewDataSource {
 }
 //MARK: - UITableViewDelegate
 extension SavedCityView: UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let name = delegate?.getListOfCities()[indexPath.row].name,
               let latitude = delegate?.getListOfCities()[indexPath.row].latitude,
@@ -100,28 +100,53 @@ extension SavedCityView: UITableViewDelegate {
         let currentLocation = indexPath.row == 0 ? true : false
         delegate?.showCityWeather(name: name, latitude: latitude, longitude: longitude, currentLocation: currentLocation)
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 130
     }
-    
+
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return indexPath.row != 0
     }
-    
+
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard indexPath.row != 0 else { return nil }
-        
-        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { [weak self] (action, view, completionHandler) in
+
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (action, view, completionHandler) in
             self?.model.remove(at: indexPath.row)
             self?.delegate?.removeCity(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             completionHandler(true)
         }
+
+        deleteAction.image = createDeleteActionImage()
+        deleteAction.backgroundColor = .black
         
-        deleteAction.backgroundColor = .red
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = false
         return configuration
+    }
+
+    private func createDeleteActionImage() -> UIImage? {
+        let deleteView = UIView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+        deleteView.backgroundColor = .red
+        deleteView.layer.cornerRadius = 30
+        deleteView.clipsToBounds = true
+
+        let trashImageView = UIImageView(image: UIImage(systemName: "trash"))
+        trashImageView.tintColor = .white
+        trashImageView.contentMode = .center
+        trashImageView.frame = CGRect(x: 15, y: 15, width: 30, height: 30)
+        
+        deleteView.addSubview(trashImageView)
+
+        UIGraphicsBeginImageContextWithOptions(deleteView.bounds.size, false, 0)
+        guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        deleteView.layer.render(in: context)
+        let actionImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return actionImage
     }
 }
 
