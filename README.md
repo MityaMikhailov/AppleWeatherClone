@@ -10,4 +10,5 @@ Add and manage favorite cities
 Search for cities using MapKit
 Save and load user preferences using UserDefaults
 
-![Главный экран](images/IMG_2496.PNG)
+![one](Images/Weather.png)
+![two](Images/Weather-1.png)
