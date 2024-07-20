@@ -9,3 +9,5 @@ Show hourly and daily weather forecasts
 Add and manage favorite cities
 Search for cities using MapKit
 Save and load user preferences using UserDefaults
+
+![Главный экран](images/IMG_2496.PNG)
